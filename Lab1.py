@@ -10,16 +10,16 @@ random.shuffle(cards)
 t = (2*n)**(1/2)
 t = int(t)
 tablero = []
-print(cards)
+
 for i in range(0, len(cards), t):
     tablero.append(cards[i: i+t])
 for i in tablero:
     print(*i)
 
 print("")
+
 P1 = 0
 P2 = 0
-
 ast= []
 for i in tablero:
     row = []
@@ -28,36 +28,44 @@ for i in tablero:
     ast.append(row)
 for i in ast:
     print(*i)
-
+print("")
 x = True
 T = 1
+
+
+def choose_pos(z, ast):
+    try:
+        vuelta = str(input(z + "\n"))
+        pos = vuelta.split(",")
+        pos[0] = int(pos[0])
+        pos[1] = int(pos[1])
+        ast[pos[0]][pos[1]] = tablero[pos[0]][pos[1]]
+        return pos, ast
+    except:
+        print("Coordinadas no válidas")
+        choose_pos(z, ast)
+
+
 while x == True:
     if T == 1:
         print("Juega J1")
         P1_old = P1
-        vuelta = "1, 1" #str(input("Qué carta quiere dar vuelta? fila, columna\n"))
-        pos = vuelta.split(", ")
-        pos[0] = int(pos[0])
-        pos[1] = int(pos[1])
-        print(pos)
-        ast[pos[0]][pos[1]] = tablero[pos[0]][pos[1]]
+        z = "Qué carta quiere dar vuelta? fila,columna"
+        pos, ast = choose_pos(z, ast)
         for i in ast:
             print(*i)
         print("")
-        vuelta2 = "2, 2" #str(input("Dónde está su par? fila, columna\n"))
-        pos2 = vuelta2.split(", ")
-        pos2[0] = int(pos2[0])
-        pos2[1] = int(pos2[1])
-        ast[pos2[0]][pos2[1]] = tablero[pos2[0]][pos2[1]]
+        z = "Dónde está su par? fila,columna"
+        pos2, ast = choose_pos(z, ast)
         for i in ast:
             print(*i)
         if ast[pos[0]][pos[1]] == ast[pos2[0]][pos2[1]]:
-            print("Correcto! Encontraste un par.")
+            print("Correcto! Encontraste un par.\n")
             P1 += 1
             ast[pos[0]][pos[1]] = " "
             ast[pos2[0]][pos2[1]] = " "
         else:
-            print("Mala suerte :( Sigue intentando")
+            print("Mala suerte :( Sigue intentando\n")
             ast[pos[0]][pos[1]] = "*"
             ast[pos2[0]][pos2[1]] = "*"
         if P1 == P1_old:
@@ -67,29 +75,22 @@ while x == True:
     if T == 2:
         print("Juega J2")
         P2_old = P2
-        vuelta = str(input("Qué carta quiere dar vuelta? fila, columna\n"))
-        pos = vuelta.split(", ")
-        pos[0] = int(pos[0])
-        pos[1] = int(pos[1])
-        print(pos)
-        ast[pos[0]][pos[1]] = tablero[pos[0]][pos[1]]
+        z = "Qué carta quiere dar vuelta? fila,columna"
+        pos, ast = choose_pos(z, ast)
         for i in ast:
             print(*i)
         print("")
-        vuelta2 = str(input("Dónde está su par? fila, columna\n"))
-        pos2 = vuelta2.split(", ")
-        pos2[0] = int(pos2[0])
-        pos2[1] = int(pos2[1])
-        ast[pos2[0]][pos2[1]] = tablero[pos2[0]][pos2[1]]
+        z = "Dónde está su par? fila,columna"
+        pos2, ast = choose_pos(z, ast)
         for i in ast:
             print(*i)
         if ast[pos[0]][pos[1]] == ast[pos2[0]][pos2[1]]:
-            print("Correcto! Encontraste un par.")
+            print("Correcto! Encontraste un par.\n")
             P2 += 1
             ast[pos[0]][pos[1]] = " "
             ast[pos2[0]][pos2[1]] = " "
         else:
-            print("Mala suerte :( Sigue intentando")
+            print("Mala suerte :( Sigue intentando\n")
             ast[pos[0]][pos[1]] = "*"
             ast[pos2[0]][pos2[1]] = "*"
         if P2 == P2_old:
@@ -98,9 +99,7 @@ while x == True:
             break
     for i in ast:
         print(*i)
-    
-    
-    x = False
+
 print(f"J1: {P1}\nJ2: {P2}")
 if P1 > P2:
     print("Ganó el jugador 1")
