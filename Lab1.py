@@ -5,12 +5,12 @@ def print_board(board):
         print(*i)
     print("")
 
-#n = int(input("Cuantas cartas van a jugar?"))
-n = 8
+n = int(input("Cuantas cartas van a jugar?"))
 cards = []
 for i in range(1, n+1):
     cards.append(i)
     cards.append(i)
+
 random.shuffle(cards)
 t = int((2*n)**(1/2))
 board = []
