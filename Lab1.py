@@ -30,14 +30,14 @@ for i in board:
     game.append(row)
 
 
-def choose_pos(z, game):
+def choose_pos(txt, game):
     try:
         x = False
         while not x:
-            coord = str(input(z + "\n"))
+            coord = str(input(txt + "\n"))
             pos = coord.split(",")
-            pos[0] = int(pos[0])
-            pos[1] = int(pos[1])
+            pos[0] = int(pos[0])-1
+            pos[1] = int(pos[1])-1
             if game[pos[0]][pos[1]] == " ":
                 print("Coordenadas no válidas")
                 continue
@@ -47,18 +47,19 @@ def choose_pos(z, game):
         return pos, game
     except:
         print("Coordenadas no válidas")
-        choose_pos(z, game)
+        return choose_pos(txt, game)
 
 def check_result(game, pos, pos2, P, txt):
     if game[pos[0]][pos[1]] == game[pos2[0]][pos2[1]]:
-            print(txt[2])
-            P += 1
-            game[pos[0]][pos[1]] = " "
-            game[pos2[0]][pos2[1]] = " "
+        print(txt[2])
+        P += 1
+        game[pos[0]][pos[1]] = " "
+        game[pos2[0]][pos2[1]] = " "
     else:
         print(txt[3])
         game[pos[0]][pos[1]] = "*"
         game[pos2[0]][pos2[1]] = "*"
+    print_board(game)
     return game, P
 
 txt = ["Qué carta quiere dar vuelta? fila,columna", 
@@ -75,10 +76,9 @@ while x == True:
         P1_old = P1
         pos, game = choose_pos(txt[0], game)
         print_board(game)
-        
         pos2, game = choose_pos(txt[1], game)
         print_board(game)
-        game, pos = check_result(game, pos, pos2, P1, txt)
+        game, P1 = check_result(game, pos, pos2, P1, txt)
         if P1 == P1_old:
             T = 2
         if P1 + P2 == n:
@@ -91,7 +91,7 @@ while x == True:
         print_board(game)
         pos2, game = choose_pos(txt[1], game)
         print_board(game)
-        game, pos = check_result(game, pos, pos2, P2, txt)
+        game, P2 = check_result(game, pos, pos2, P2, txt)
         if P2 == P2_old:
             T = 1
         if P1 + P2 == n:
