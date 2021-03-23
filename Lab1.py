@@ -5,7 +5,7 @@ def print_board(board):
         print(*i)
     print("")
 
-n = int(input("Cuantas cartas van a jugar?"))
+n = int(input("Cuantas pares van a jugar?"))
 cards = []
 for i in range(1, n+1):
     cards.append(i)
