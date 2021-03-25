@@ -1,9 +1,11 @@
 import random
 
+
 def print_board(board):
     for i in board:
         print(*i)
     print("")
+
 
 n = int(input("Cuantas pares van a jugar?"))
 cards = []
@@ -19,8 +21,6 @@ for i in range(0, len(cards), t):
     board.append(cards[i: i+t])
 print_board(board)
 
-print("")
-
 P1, P2 = 0, 0
 game = []
 for i in board:
@@ -34,7 +34,7 @@ def choose_pos(txt, game):
     try:
         x = False
         while not x:
-            coord = str(input(txt + "\n"))
+            coord = str(input(txt))
             pos = coord.split(",")
             pos[0] = int(pos[0])-1
             pos[1] = int(pos[1])-1
@@ -49,6 +49,7 @@ def choose_pos(txt, game):
         print("Coordenadas no válidas")
         return choose_pos(txt, game)
 
+
 def check_result(game, pos, pos2, P, txt):
     if game[pos[0]][pos[1]] == game[pos2[0]][pos2[1]]:
         print(txt[2])
@@ -59,17 +60,17 @@ def check_result(game, pos, pos2, P, txt):
         print(txt[3])
         game[pos[0]][pos[1]] = "*"
         game[pos2[0]][pos2[1]] = "*"
-    print_board(game)
     return game, P
 
-txt = ["Qué carta quiere dar vuelta? fila,columna", 
-       "Dónde está su par? fila,columna",
+
+txt = ["Qué carta quiere dar vuelta? fila,columna\n", 
+       "Dónde está su par? fila,columna\n",
        "Correcto! Encontraste un par.\n",
        "Mala suerte :( Sigue intentando\n"]
 
 x = True
 T = 1
-while x == True:
+while x:
     print_board(game)
     if T == 1:
         print("Juega J1")
@@ -84,7 +85,7 @@ while x == True:
         if P1 + P2 == n:
             break
     
-    if T == 2:
+    elif T == 2:
         print("Juega J2")
         P2_old = P2
         pos, game = choose_pos(txt[0], game)
