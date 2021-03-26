@@ -6,8 +6,8 @@ def print_board(board):
         print(*i)
     print("")
 
-
-n = int(input("Cuantas pares van a jugar?\n"))
+print("Rows and columns start at 1,1")
+n = int(input("How many pairs of cards would you like to play with?\n"))
 print("")
 cards = []
 for i in range(1, n+1):
@@ -40,14 +40,14 @@ def choose_pos(txt, game):
             pos[0] = int(pos[0])-1
             pos[1] = int(pos[1])-1
             if game[pos[0]][pos[1]] == " ":
-                print("Coordenadas no válidas")
+                print(txt[4])
                 continue
             else:
                 x = True
             game[pos[0]][pos[1]] = board[pos[0]][pos[1]]
         return pos, game
     except:
-        print("Coordenadas no válidas")
+        print(txt[4])
         return choose_pos(txt, game)
 
 
@@ -64,17 +64,18 @@ def check_result(game, pos, pos2, P, txt):
     return game, P
 
 
-txt = ["Qué carta quiere dar vuelta? fila,columna\n", 
-       "Dónde está su par? fila,columna\n",
-       "Correcto! Encontraste un par.\n",
-       "Mala suerte :( Sigue intentando\n"]
+txt = ["Which card do you want to flip? row,column\n", 
+       "where is the pair? row,column\n",
+       "Correct! You found a pair.\n",
+       "Bad luck :( Keep trying\n",
+       "Coordinates not valid"]
 
 x = True
 T = 1
 while x:
     print_board(game)
     if T == 1:
-        print("Juega J1")
+        print("Player 1 turn")
         P1_old = P1
         pos, game = choose_pos(txt[0], game)
         print_board(game)
@@ -87,7 +88,7 @@ while x:
             break
     
     elif T == 2:
-        print("Juega J2")
+        print("Player 2 turn")
         P2_old = P2
         pos, game = choose_pos(txt[0], game)
         print_board(game)
@@ -99,10 +100,10 @@ while x:
         if P1 + P2 == n:
             break
     
-print(f"J1: {P1}\nJ2: {P2}")
+print(f"P1: {P1}\nP2: {P2}")
 if P1 > P2:
-    print("Ganó el jugador 1")
+    print("Player 1 wins")
 elif P1 < P2:
-    print("Ganó el jugador 2")
+    print("Player 2 wins")
 else:
-    print("Empate")
+    print("Tie")
