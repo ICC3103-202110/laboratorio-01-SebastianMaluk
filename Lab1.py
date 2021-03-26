@@ -7,7 +7,8 @@ def print_board(board):
     print("")
 
 
-n = int(input("Cuantas pares van a jugar?"))
+n = int(input("Cuantas pares van a jugar?\n"))
+print("")
 cards = []
 for i in range(1, n+1):
     cards.append(i)
@@ -19,7 +20,6 @@ board = []
 
 for i in range(0, len(cards), t):
     board.append(cards[i: i+t])
-print_board(board)
 
 P1, P2 = 0, 0
 game = []
@@ -35,6 +35,7 @@ def choose_pos(txt, game):
         x = False
         while not x:
             coord = str(input(txt))
+            print("")
             pos = coord.split(",")
             pos[0] = int(pos[0])-1
             pos[1] = int(pos[1])-1
